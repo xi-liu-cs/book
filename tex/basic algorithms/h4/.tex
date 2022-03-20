@@ -1,0 +1,648 @@
+\documentclass[12pt,border=4pt,multi]{article}%\documentclass[tikz,border=4pt,multi]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{amssymb} %for mathbb{}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{forest}
+\usepackage{amsmath} %for matrices
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage[arrowdel]{physics}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{pgfplots, pgfplotstable}
+\graphicspath{{./img}} %specify the graphics path to be relative to the main .tex file, denoting the main .tex file directory as ./
+\newcommand\Myperm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+\definecolor{orchid}{rgb}{0.7, 0.4, 1.1}
+
+\begin{document}
+
+\section*{Xi Liu, xl3504, Homework 4}
+Problem 1\\
+(a)\\
+group size = 3\\
+number of groups = $n/3$\\
+$(1/2)(n/3) = n/6$ groups have their median less than the pivot	(left part)\\
+$(1/2)(n/3) = n/6$ groups have their median greater than the pivot	(right part)\\
+\\
+each of the $n/6$ groups from (left part)
+have at least 2 elements that are smaller than the pivot
+(1 element that is less than the local median + 1 element that is the local median 
+that is less than the global median (pivot))
+\\
+similarly,
+each of the $n/6$ groups from (right part)
+have at least 2 elements that are greater than the pivot
+(1 element that is are greater than the local median + 1 element that is the local median 
+that is greater than the global median (pivot))\\
+\\
+so pivot is less than at least $2(n/6) = n/3$ elements 
+and greater than at least $2(n/6) = n/3$ elements
+\\
+in the most uneven case, the median of medians pivot divides the elements into sets with size $n/3$ and $n - n/3 = 2n/3$\\
+\\
+let $T(n)$ be the time complexity of the select() algorithm\\
+the recurrence is 
+\[\boxed{T(n) \lesssim T(n/3) + T(2n/3) + n}\]
+$T(n/3)$ is the time complexity of finding the pivot as the median of $n/3$ medians\\
+$T(2n/3)$ is the time complexity of recursively calling left or right\\
+$n$ is the time complexity of partition() and using insertion sort to find the median of each of the $n/3$ groups\\ 
+\\
+\begin{center}
+\begin{tikzpicture}
+[
+    level 1/.style = {sibling distance = 5cm, level distance = 3cm},
+    level 2/.style = {sibling distance = 2cm, level distance = 3cm},
+    level 3/.style = {sibling distance = 1cm, level distance = 3cm},
+    level 4/.style = {sibling distance = 1cm, level distance = 1cm},
+]
+\node{$n$}
+    child{node{$(1/3) n$}
+        child{node{$(1/3)^2 n$}
+            child{node{1\;$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(1/3)(2/3) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+    }
+    child{node{$(2/3) n$}
+        child{node{$(2/3)(1/3) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(2/3)^2 n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$\;1}
+                edge from parent [dashed]
+            }
+        }
+    };
+\end{tikzpicture}    
+\end{center}
+let $i$ be the depth,
+\[\left(\frac{2}{3}\right)^i n = 1;\; \qquad n = \left(\frac{3}{2}\right)^i;\; \qquad i = \log_{3/2} n\]
+\[\text{height} = \log_{3/2} n\]
+\begin{align*}
+\text{at depth $i$, time cost} = n
+\end{align*}
+/* since the time cost of each node is equal sum of the time costs of that node's left child and right child */
+\begin{align*}
+\text{number of leaves} = 2^{\log_{3/2} n} = n^{\log_{3/2} 2}
+\end{align*}
+\begin{center}
+/* since $\log_{3/2}(\textcolor{orchid}{2^{\log_{3/2} n}}) = (\log_{3/2} n)(\log_{3/2} 2)$\\
+= $(\log_{3/2} 2)(\log_{3/2} n) = \log_{3/2} (\textcolor{orchid}{n^{\log_{3/2} 2}})$ */
+\end{center}
+worst case running time:
+\begin{align*}
+T(n) &= \sum_{i = 0}^{\log_{3/2} n} n\\
+&= n(\log_{3/2} n + 1)\\
+&= n\log_{3/2} n + n\\
+&= \boxed{\Theta(n \log_{3/2} n)}\\
+\end{align*}
+\\
+\\
+\\
+\\
+\\
+(b)\\
+group size = 7\\
+number of groups = $n/7$\\
+$(1/2)(n/7) = n/14$ groups have their median less than the pivot	(left part)\\
+$(1/2)(n/7) = n/14$ groups have their median greater than the pivot	(right part)\\
+\\
+each of the $n/14$ groups from (left part)
+have at least 4 elements that are smaller than the pivot
+(3 elements that are less than the local median + 1 element that is the local median 
+that is less than the global median (pivot))
+\\
+similarly,
+each of the $n/14$ groups from (right part)
+have at least 4 elements that are greater than the pivot
+(3 elements that are are greater than the local median + 1 element that is the local median 
+that is greater than the global median (pivot))\\
+\\
+so pivot is less than at least $4(n/14) = 4n/14$ elements 
+and greater than at least $4(n/14) = 4n/14$ elements
+\\
+in the most uneven case, the median of medians pivot divides the elements into sets with size $4n/14$ and $n - 4n/14 = 10n/14$\\
+\\
+let $T(n)$ be the time complexity of the select() algorithm\\
+the recurrence is 
+\[\boxed{T(n) \lesssim T(n/7) + T(10n/14) + n}\]
+$T(n/7)$ is the time complexity of finding the pivot as the median of $n/7$ medians\\
+$T(10n/14)$ is the time complexity of recursively calling left or right\\
+$n$ is the time complexity of partition() and using insertion sort to find the median of each of the $n/7$ groups\\
+\begin{center}
+\begin{tikzpicture}
+[
+    level 1/.style = {sibling distance = 6cm, level distance = 3cm},
+    level 2/.style = {sibling distance = 3cm, level distance = 3cm},
+    level 3/.style = {sibling distance = 1.5cm, level distance = 3cm},
+    level 4/.style = {sibling distance = 1cm, level distance = 1cm},
+]
+\node{$n$}
+    child{node{$(1/7) n$}
+        child{node{$(1/7)^2 n$}
+            child{node{1\;$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(1/7)(10/14) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+    }
+    child{node{$(10/14)n$}
+        child{node{$(10/14)(1/7) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(10/14)^2 n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$\;1}
+                edge from parent [dashed]
+            }
+        }
+    };
+\end{tikzpicture}    
+\end{center}
+let $i$ be the depth,
+\[\left(\frac{10}{14}\right)^i n = 1;\; \qquad n = \left(\frac{14}{10}\right)^i;\; \qquad i = \log_{14/10} n\]
+\[\text{height} = \log_{14/10} n\]
+$
+\text{at depth $0$, time cost} &= n\\
+\text{at depth $1$, time cost} &= (1/7 + 10/14)n = (2/14 + 10/14) = (12/14)n\\
+\text{at depth $2$, time cost} &= ((1/7)^2 + (1/7)(10/14) + (10/14)(1/7) + (10/14)^2)n
+= (1/49 + 5/49 + 5/49 + 25/49)n = (36/49)n = (12/14)^2 n\\
+$
+\begin{align*}
+\text{at depth $i$, time cost} &= (12/14)^i n
+\end{align*}
+\begin{align*}
+\text{number of leaves} = 2^{\log_{14/10} n} = n^{\log_{14/10} 2}
+\end{align*}
+\begin{center}
+/* since $\log_{14/10}(\textcolor{orchid}{2^{\log_{14/10} n}}) = (\log_{14/10} n)(\log_{14/10} 2)$\\
+= $(\log_{14/10} 2)(\log_{14/10} n) = \log_{14/10} (\textcolor{orchid}{n^{\log_{14/10} 2}})$ */
+\end{center}
+worst case running time:
+\begin{align*}
+T(n) &= \sum_{i = 0}^{\log_{14/10} n} \left(\frac{12}{14}\right)^i n\\
+&= n\sum_{i = 0}^{\log_{14/10} n} \left(\frac{12}{14}\right)^i\\
+&\text{/* since} \sum_{i = 0}^n ar^i = a\left(\frac{1 - r^{n + 1}}{1 - r}\right)\\
+&\text{apply formula for geometric sum with $r = \frac{12}{14}$ */}\\
+&= n\left(\frac{1 - (12/14)^{\log_{14/10} n + 1}}{1 - (12/14)}\right)\\
+&= n\left(\frac{1 - (12/14)^{\log_{14/10} n + 1}}{2/14}\right)\\
+&= (14/2)n\left(1 - (12/14)^{\log_{14/10} n + 1}\right)\\
+&= 7n\left(1 - (6/7)^{\log_{7/5} n}\right)\\
+&\text{/* since} \lim_{n \rightarrow \infty} \left(\frac{6}{7}\right)^{\log_{7/5} n} = 0\text{ */}\\
+&= 7n \qquad \text{as} \; n \rightarrow \infty\\
+&= \boxed{\Theta(n)}\\
+\end{align*}
+\newpage
+\noindent
+Problem 2\\
+(a)\\
+since the pivot is the median of subarray $A[1...n/5]$, there are at least $(1/2)(n/5) = n/10$ elements less than the pivot in the subarray $A[1...n/5]$, and there are at least $(1/2)(n/5) = n/10$ elements greater than the pivot in the subarray $A[1...n/5]$\\
+\\
+\\
+\\
+\\
+\\
+(b)\\
+let $T(n)$ be the time complexity of this modified select() algorithm that chooses $n/5$ arbitrary elements of the input array\\
+the recurrence is
+\[T(n) \lesssim T(n/5) + T(9n/10) + n\]
+$T(n/5)$ is the time complexity of finding the median by recursively calling select(), that is, select($A[1 . . . n/5], n/10$)\\
+$T(9n/10)$ is the time complexity of recursively calling left or right\\
+$n$ is the time complexity of partition()\\
+\begin{center}
+\begin{tikzpicture}
+[
+    level 1/.style = {sibling distance = 6cm, level distance = 3cm},
+    level 2/.style = {sibling distance = 3cm, level distance = 3cm},
+    level 3/.style = {sibling distance = 1.5cm, level distance = 3cm},
+    level 4/.style = {sibling distance = 1cm, level distance = 1cm},
+]
+\node{$n$}
+    child{node{$(1/5) n$}
+        child{node{$(1/5)^2 n$}
+            child{node{1\;$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(1/5)(9/10) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+    }
+    child{node{$(9/10) n$}
+        child{node{$(9/10)(1/5) n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+        }
+        child{node{$(9/10)^2 n$}
+            child{node{$\cdots$}
+                edge from parent [dashed]
+            }
+            child{node{$\cdots$\;1}
+                edge from parent [dashed]
+            }
+        }
+    };
+\end{tikzpicture}    
+\end{center}
+\leavevmode
+\\
+\\
+\\
+\\
+(c)\\
+let $i$ be the depth,
+\[\left(\frac{9}{10}\right)^i n = 1;\; \qquad n = \left(\frac{10}{9}\right)^i;\; \qquad i = \log_{10/9} n\]
+\[\text{height} = \log_{10/9} n\]
+\begin{align*}
+\text{at depth $0$, time cost} &= n\\
+\text{at depth $1$, time cost} &= (1/5 + 9/10)n = \frac{11}{10}n\\
+\text{at depth $2$, time cost} &= ((1/5)^2 + (1/5)(9/10) + (9/10)(1/5)\\
+&+ (9/10)^2)n = \frac{121}{100}n = \left(\frac{11}{10}\right)^2 n\\
+\text{at depth $i$, time cost} &= \left(\frac{11}{10}\right)^i n\\
+\end{align*}
+/* since the time cost of each node is equal sum of the time costs of that node's left child and right child */
+\begin{align*}
+\text{number of leaves} = 2^{\log_{10/9} n} = n^{\log_{10/9} 2}
+\end{align*}
+\begin{center}
+/* since $\log_{10/9}(\textcolor{orchid}{2^{\log_{10/9} n}}) = (\log_{10/9} n)(\log_{10/9} 2)$\\
+= $(\log_{10/9} 2)(\log_{10/9} n) = \log_{10/9} (\textcolor{orchid}{n^{\log_{10/9} 2}})$ */
+\end{center}
+worst case running time:
+\begin{align*}
+T(n) &= \boxed{\sum_{i = 0}^{\log_{10/9} n} \left(\frac{11}{10}\right)^i n}\\
+&= n\sum_{i = 0}^{\log_{10/9} n} \left(\frac{11}{10}\right)^i\\
+&\text{/* since} \sum_{i = 0}^n ar^i = a\left(\frac{1 - r^{n + 1}}{1 - r}\right)\\
+&\text{apply formula for geometric sum with $r = \frac{11}{10}$ */}\\
+&= n\left(\frac{1 - (11/10)^{\log_{10/9} n + 1}}{1 - (11/10)}\right)\\
+&= n\left(\frac{1 - (11/10)^{\log_{10/9} n + 1}}{- 1/10}\right)\\
+&= -10n(1 - (11/10)^{\log_{10/9} n + 1})\\
+&= 10n((11/10)^{\log_{10/9} n + 1} - 1)\\
+&= \boxed{\Omega(n)}\\
+\end{align*}
+\newpage
+\noindent
+Problem 3\\
+(a)
+\[T(n) = 4T(n / 2) + n^2\]
+\[a = 4\]
+\[b = 2\]
+\[n^{\log_b a} = n^{\log_2 4} = n^2 = \Theta(n^2)\]
+\[f(n) = n^2 = \Theta(n^2) = \Theta(n^{\log_b a})\]
+\[T(n) = \Theta(n^{\log_b a} \lg n) = \Theta(f(n) \lg n) = \boxed{\Theta(n^2 \lg n)} \qquad \textcolor{orchid}{case\;(b)}\]
+\\
+\\
+\\
+\\
+(b)
+\[T(n) = 2T(n / 2) + \log n\]
+\[a = 2\]
+\[b = 2\]
+\[n^{\log_b a} = n^{\log_2 2} = n^1 = \Theta(n^1)\]
+\[f(n) = \log n = O(n^{1 - \epsilon}) = O(n^{\log_2 2 - \epsilon}) = O(n^{\log_b a - \epsilon})\]
+\[\forall \epsilon \in (0,\;1) = \{\epsilon \in \mathbb{R}\;|\;0 < \epsilon < 1\}\]
+\begin{align*}
+\text{/* since } &\forall (a,\; b) \in \mathbb{R}_{>0}^2\\
+&\lim_{n \rightarrow \infty} \frac{n^a}{\log_b n}\\ 
+&\text{/* L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{a n^{a - 1}}{1 / (n \ln (b))}\\
+&= \lim_{n \rightarrow \infty} (n \ln (b))a n^{a - 1}\\
+&= \infty \qquad \text{*/}
+\end{align*}
+$f(n)$ is asymptotically smaller than $n^{\log_b a}$,\\
+check if $f(n)$ is polynomially smaller than $n^{\log_b a}$:\\
+let $b \in \mathbb{R}$ be the base of $\log n$
+\begin{align*}
+\lim_{n \rightarrow \infty} \frac{n^{\log_b a}}{f(n)} &= \lim_{n \rightarrow \infty} \frac{n}{\log_b n}\\
+&\text{/* L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{1}{1 / (n \ln (b)}\\
+&= \lim_{n \rightarrow \infty} n\ln(b) \geq \lim_{n \rightarrow \infty} n^{\epsilon} \qquad \text{for } \epsilon = 1 \text{ and } \ln(b) > 1\\
+\end{align*}
+so $f(n)$ is polynomially smaller than $n^{\log_b a}$
+\begin{align*}
+T(n) = \Theta(n^{\log_b a}) = \boxed{\Theta(n)} \qquad \textcolor{orchid}{case\;(a)}
+\end{align*}
+\\
+\\
+\\
+\\
+(c)
+\[T(n) = 0.2T(n/2) + n\]
+for a recurrence $T(n) = aT(n/ b) + f(n)$, the Master theorem requires $a \geq 1$ and $b > 1$. but this recurrence has $a = 0.2 \not\geq 1$ or equivalently $0.2 < 1$. so the Master theorem does not apply to this recurrence\\
+\\
+\\
+\\
+\\
+(d)
+\[T(n) = 8T(n / 2) + 2^n\]
+\[a = 8\]
+\[b = 2\]
+\[n^{\log_b a} = n^{\log_2 8} = n^3 = \Theta(n^3)\]
+\[f(n) = 2^n = \Omega(n^{3 + \epsilon}) = \Omega(n^{\log_b a + \epsilon})\]
+\[\forall \epsilon \in \mathbb{R}_{>0}\]
+\begin{align*}
+\text{/* since } &\forall (a,\; b) \in \mathbb{R}_{>0}^2\\
+&\lim_{n \rightarrow \infty} \frac{2^n}{n^a}\\
+&\text{/* after 1 application of L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{2^n\ln(2)}{a n^{a - 1}}\\
+&\text{/* after $a$ applications of L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{2^n(\ln(2))^a}{a!}\\
+&= \lim_{n \rightarrow \infty} \frac{(\ln(2))^a}{a!} 2^n\\
+&= \infty \qquad \text{*/}
+\end{align*}
+$f(n)$ is asymptotically larger than $n^{\log_b a}$,\\
+check if $f(n)$ is polynomially larger than $n^{\log_b a}$:
+\begin{align*}
+\lim_{n \rightarrow \infty} \frac{f(n)}{n^{\log_b a}} &= \lim_{n \rightarrow \infty} \frac{2^n}{n^3}\\
+&\text{/* after 1 application of L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{2^n \ln(2)}{3n^2}\\
+&\text{/* after 3 applications of L'Hôpital's rule */}\\
+&= \lim_{n \rightarrow \infty} \frac{2^n (\ln(2))^3}{3!}\\
+&= \lim_{n \rightarrow \infty} \frac{(\ln(2))^3}{3!}2^n > \lim_{n \rightarrow \infty} n^{\epsilon} \qquad \forall \epsilon \in \mathbb{R}_{>0}
+\end{align*}
+so $f(n)$ is polynomially larger than $n^{\log_b a}$\\
+to show that the regularity condition is true for $f(n) = 2^n$\\
+for sufficiently large $n$, we have that 
+\[af(n/b) = 8f(n/2) = 8(2^{n/2}) \leq cf(n) \qquad \forall c \in (0, 1) = \{c \;|\; 0 < c < 1\}\]
+since $ \forall c \in (0, 1) = \{c \;|\; 0 < c < 1\}$
+\begin{align*}
+\lim_{n \rightarrow \infty} \frac{c(2^n)}{8(2^{n/2})} &= \lim_{n \rightarrow \infty} \frac{c}{8} \cdot \frac{2^n}{2^{n/2}}\\
+&= \lim_{n \rightarrow \infty} \frac{c}{8} \cdot 2^{n/2}\\
+&= \infty\\
+\end{align*}
+\[T(n) = \Theta(f(n)) = \boxed{\Theta(2^n)} \qquad \textcolor{orchid}{case\;(c)}\]
+\\
+\\
+\\
+\\
+(e)
+\[T(n) = 2T(n/2) + \frac{n}{\log n}\]
+\[a = 2\]
+\[b = 2\]
+\[n^{\log_b a} = n^{\log_2 2} = n^1 = \Theta(n^1)\]
+\[f(n) = \frac{n}{\log n}\]
+$f(n)$ is asymptotically smaller than $n^{\log_b a}$,\\
+check if $f(n)$ is polynomially smaller than $n^{\log_b a}$:
+\begin{align*}
+\lim_{n \rightarrow \infty} \frac{n^{\log_b a}}{f(n)} &=  \lim_{n \rightarrow \infty}\frac{n}{n/\log n}\\
+&= \lim_{n \rightarrow \infty}\log n < \lim_{n \rightarrow \infty} n^{\epsilon} \qquad \forall \epsilon (\epsilon \in \mathbb{R} \wedge \epsilon \geq 1)\\
+\end{align*}
+since $f(n)$ is not polynomially smaller than $n^{\log_b a}$, the Master theorem does not apply to this recurrence\\
+\newpage
+\noindent
+Problem 4\\
+(a)
+\begin{lstlisting}[language = c, mathescape = true]
+/* find_all_kth() is an $O(n)$ time algorithm
+that finds all the kth smallest elements of A,
+it finds the 1st smallest, the 2nd smallest,
+... , and the kth smallest elements of A */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+void swap(int * ptr, int i, int j)
+{
+    int t = ptr[i];
+    ptr[i] = ptr[j];
+    ptr[j] = t;
+}
+
+int partition(int * ptr, int a, int b)
+{
+    int p_i = a; //partition index
+    int piv = ptr[b];
+    for(int i = a; i <= b - 1; i++)
+    {
+        if(ptr[i] <= piv)
+        {
+            swap(ptr, i, p_i);
+            p_i++;
+        }
+    }
+    swap(ptr, p_i, b);
+    return p_i; 
+}
+
+int rand_partition(int * ptr, int a, int b)
+{
+    int rand_i = 0;
+    srand(time(0));
+    if(b - a != 0) 
+        rand_i = a + rand() % (b - a);
+    swap(ptr, rand_i, b);
+    return partition(ptr, a, b);
+}
+
+int rand_select(int * A, int left, int right, int i)
+{
+    if(left == right)
+        return A[left];
+    int rand_i = rand_partition(A, left, right);
+    int k = rand_i - left + 1;
+    if(i == k)
+        return A[rand_i];
+    else if(i < k)
+        return rand_select(A, left, rand_i - 1, i);
+    else
+        return rand_select(A, rand_i + 1, right, i - k);
+}
+
+int * find_all_kth(int * A, int n, int k)
+{
+    int * ret = (int *)malloc(k * sizeof(int));
+    for(int i = 1; i <= k; i++) 
+    {/* for loop has constant number of iterations, 
+    since k does not depend on the input size n */
+        ret[i] = rand_select(A, 1, n, i);
+    }
+    return ret;
+}
+
+/* ret[1...k] contains the 1st smallest, the 2nd smallest,
+... , and the kth smallest elements of A */
+\end{lstlisting}
+\leavevmode
+\newpage
+\noindent
+\begin{lstlisting}[language = c, mathescape = true]
+/* an alternative implementation:
+ret[1...k] contains the 1st smallest, the 2nd smallest,
+... , and the kth smallest elements of A
+it uses the same rand_partition() 
+described above */
+
+int * find_all_kth(int * A, int n, int k)
+{
+    int counter = 0;
+    int * ret = (int *)malloc(k * sizeof(int));
+    memset(ret, 0, k * sizeof(int));
+    while(counter < k)
+    {
+        rand_select(A, 1, n, k - counter, ret, &counter);
+    }
+    return ret;
+}
+
+int rand_select(int * A, int left, int right,
+int i, int * ret, int * counter)
+{
+    if(left == right)
+        return A[left];
+    int rand_i = rand_partition(A, left, right);
+    int k = rand_i - left + 1;
+    if(i <= k && ret[i] == 0)
+    {
+        ret[i] = A[rand_i];
+        *counter = *counter + 1;
+    }
+    if(i == k)
+        return A[rand_i];
+    else if(i < k)
+        return rand_select(A, left, rand_i - 1, i);
+    else
+        return rand_select(A, rand_i + 1, right, i - k);
+}
+\end{lstlisting}
+\\
+\\
+\\
+\\
+\\
+\\
+\newpage
+\noindent
+(b)
+\begin{lstlisting}[language = c, mathescape = true]
+/* find_L_to_kth() is an O(n) time algorithm that
+find the Lth smallest, the (L + 1)th smallest, ...,
+and the kth smallest elements of A 
+it uses the same rand_partition() described 
+in Problem 4 (a) */
+
+int * find_L_to_kth(int * A, int n, int L, int k)
+{
+    int * ret = (int *)malloc((k - L + 1) * sizeof(int));
+    for(int i = L; i <= k; i++)
+    {/* for loop has constant number of iterations, 
+    since L and k do not depend on the input size n */
+        ret[i - L + 1] = rand_select(A, 1, n, i);
+    }
+    return ret;
+}
+
+int rand_select(int * A, int left, int right, int i)
+{
+    if(left == right)
+        return A[left];
+    int rand_i = rand_partition(A, left, right);
+    int k = rand_i - left + 1;
+    if(i == k)
+        return A[rand_i];
+    else if(i < k)
+        return rand_select(A, left, rand_i - 1, i);
+    else
+        return rand_select(A, rand_i + 1, right, i - k);
+}
+
+/* ret[1...k - L + 1] contains the Lth smallest,
+the (L + 1)th smallest, ..., 
+and the kth smallest elements of A 
+it uses the same rand_partition() described 
+in Problem 4 (a) */
+\end{lstlisting}
+\newpage
+\noindent
+\begin{lstlisting}[language = c, mathescape = true]
+/* an alternative implementation:
+ret[1...k - L + 1] contains the Lth smallest,
+the (L + 1)th smallest, ..., 
+and the kth smallest elements of A 
+it uses the same rand_partition() described 
+in Problem 4 (a) */
+
+int * find_L_to_kth(int * A, int n, int L, int k)
+{
+    int counter = 0;
+    int * ret = (int *)malloc((k - L + 1) * sizeof(int));
+    memset(ret, 0, (k - L + 1) * sizeof(int));
+    while(counter < (k - L + 1))
+    {
+        rand_select(A, 1, n, k - counter, ret, &counter);
+    }
+    return ret;
+}
+
+int rand_select(int * A, int left, int right,
+int i, int * ret, int * counter)
+{
+    if(left == right)
+        return A[left];
+    int rand_i = rand_partition(A, left, right);
+    int k = rand_i - left + 1;
+    if(i <= (k - L + 1) && ret[i] == 0)
+    {
+        ret[i] = A[rand_i];
+        *counter = *counter + 1;
+    }
+    if(i == k)
+        return A[rand_i];
+    else if(i < k)
+        return rand_select(A, left, rand_i - 1, i);
+    else
+        return rand_select(A, rand_i + 1, right, i - k);
+}
+\end{lstlisting}
+\end{document}

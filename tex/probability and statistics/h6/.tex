@@ -1,0 +1,258 @@
+\documentclass[12pt,border=4pt,multi]{article} % \documentclass[tikz,border=4pt,multi]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{amssymb} % for mathbb{}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{forest}
+\usepackage{amsmath} % for matrices
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage[arrowdel]{physics}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{diagbox} % diagonal line in cell
+\usepackage[usestackEOL]{stackengine}
+\usepackage{multirow}
+\graphicspath{{./img}} % specify the graphics path to be relative to the main .tex file, denoting the main .tex file directory as ./
+\newcommand\Myperm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+\definecolor{orchid}{rgb}{0.7, 0.4, 1.1}
+
+\begin{document}
+
+\section*{Xi Liu, xl3504, Problem Set 6}
+Problem 1\\
+1.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline
+\diagbox[width = 2cm, height = 1cm]{$X$}{$Y$} & -2 & 5 & 8 & $\not\in \{-2,\;5,\;8\}$\\ \hline
+1 & $\Centerstack{(0.7)(0.3) \\ = 0.21}$ & $\Centerstack{(0.7)(0.5) \\ = 0.35}$ & $\Centerstack{(0.7)(0.2) \\ = 0.14}$ & $\Centerstack{(0.7)(0) \\ = 0}$\\ \hline
+2 & $\Centerstack{(0.3)(0.3) \\ = 0.09}$ & $\Centerstack{(0.3)(0.5) \\ = 0.15}$ & $\Centerstack{(0.3)(0.2) \\ = 0.06}$ & $\Centerstack{(0.3)(0) \\ = 0}$\\ \hline
+$\not\in \{1,\;2\}$ & $\Centerstack{(0)(0.3) \\ = 0}$ & $\Centerstack{(0)(0.5) \\ = 0}$ & $\Centerstack{(0)(0.2) \\ = 0}$ & $\Centerstack{(0.3)(0) \\ = 0}$\\ \hline
+\end{tabular}
+\end{center}
+\leavevmode
+\\
+\\
+\\
+\\
+2.
+\begin{align*}
+    P(X \text{ is even},\; Y \text{ is even}) &= p_{X, Y}(2, -2) + p_{X, Y}(2, 8)\\
+    &= 0.09 + 0.06\\
+    &= \boxed{0.15}\\
+\end{align*}
+\\
+\\
+\\
+3.
+\begin{align*}
+    P(X = 1 \;|\; Y > 0) &= \frac{P(X = 1,\; Y > 0)}{P(Y > 0)}\\
+    &= \frac{p_{X, Y}(1, 5) + p_{X, Y}(1, 8)}{p_{Y}(5) + p_{Y}(8)}\\
+    &= \frac{0.35 + 0.14}{0.5 + 0.2}\\
+    &= \frac{0.49}{0.7}\\
+    &= \boxed{0.7}\\
+\end{align*}
+Problem 2\\
+1.\\
+$X$ = number of diamonds picked\\
+$Y$ = number of queens picked\\
+\\
+in a standard deck of 52 cards\\
+number of diamonds = 13\\
+number of queens = 4\\
+{\Large
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|} \hline
+\diagbox[width = 2cm, height = 1cm]{$X$}{$Y$} & 0 & 1 & 2 & & $p_X(x)$\\ \hline
+0 & $\frac{105}{221}$ & $\frac{18}{221}$ & $\frac{1}{442}$ & \;\; & $\frac{19}{34}$\\ \hline
+1 & $\frac{72}{221}$ & $\frac{12}{221}$ & $\frac{1}{442}$ & & $\frac{13}{34}$\\ \hline
+2 & $\frac{11}{221}$ & $\frac{2}{221}$ & 0 & & $\frac{1}{17}$\\ \hline
+& & & & &\\ \hline
+$p_Y(y)$ & $\frac{188}{221}$ & $\frac{32}{221}$ & $\frac{1}{221}$ & & 1\\ \hline
+\end{tabular}
+\end{center}
+}
+\leavevmode
+let $1st$ denote first card picked, $2nd$ denote second card picked, $d$ denote diamond, $q$ denote queen
+\begin{align*}
+p_{X, Y}(0, 0) &= P(1st \not= d,\; 1st \not= q,\; 2nd \not= d,\; 2nd \not= q)\\
+&= \frac{52 - 13 - 3}{52} \cdot \frac{51 - 13 - 3}{51} = \boxed{\frac{105}{221}}\\
+p_{X, Y}(0, 1) &= P(1st \not= d,\; 1st \not= q,\; 2nd \not= d,\; 2nd = q)\\
+&\quad + P(1st \not= d,\; 1st = q,\; 2nd \not= d,\; 2nd \not= q)\\
+&= \frac{52 - 13 - 3}{52} \cdot \frac{3}{51} + \frac{3}{52} \cdot \frac{51 - 13 - 2}{51} = \boxed{\frac{18}{221}}\\
+p_{X, Y}(0, 2) &= P(1st \not= d,\; 1st = q,\; 2nd \not= d,\; 2nd = q)\\
+&= \frac{3}{52} \cdot \frac{2}{51} = \boxed{\frac{1}{442}}\\
+\end{align*}
+\begin{align*}
+p_{X, Y}(1, 0) &= P(1st = d,\; 1st \not= q,\; 2nd \not= d,\; 2nd \not= q)\\
+&\quad + P(1st \not= d,\; 1st \not= q,\; 2nd = d,\; 2nd \not= q)\\
+&= \frac{12}{52} \cdot \frac{51 - 12 - 3}{51} + \frac{52 - 13 - 3}{52} \cdot \frac{12}{51} = \boxed{\frac{72}{221}}\\
+p_{X, Y}(1, 1) &= P(1st = d,\; 1st \not= q,\; 2nd \not= d,\; 2nd = q)\\
+&\quad + P(1st \not= d,\; 1st = q,\; 2nd = d,\; 2nd \not= q)\\
+&\quad + P(1st = d, 1st = q, 2nd \not= d, 2nd \not= q)\\
+&\quad + P(1st \not= d, 1st \not= q, 2nd = d, 2nd = q)\\
+&= \frac{12}{52} \cdot \frac{3}{51} + \frac{3}{52} \cdot \frac{12}{51} + \frac{1}{52} \cdot \frac{51 - 12 - 3}{51} + \frac{52 - 13 - 3}{52} \cdot \frac{1}{51}\\
+&= \boxed{\frac{12}{221}}\\
+\end{align*}
+\begin{align*}
+p_{X, Y}(1, 2) &= P(1st = d,\; 1st = q,\; 2nd \not= d,\; 2nd = q)\\
+&\quad + P(1st \not= d,\; 1st = q,\; 2nd = d,\; 2nd = q)\\
+&= \frac{1}{52} \cdot \frac{3}{51} + \frac{3}{52} \cdot \frac{1}{51}\\
+&= \boxed{\frac{1}{442}}\\
+p_{X, Y}(2, 0) &= P(1st = d,\; 1st \not= q,\; 2nd = d,\; 2nd \not= q)\\
+&= \frac{12}{52} \cdot \frac{11}{51} = \boxed{\frac{11}{221}}\\
+p_{X, Y}(2, 1) &= P(1st = d,\; 1st = q,\; 2nd = d,\; 2nd \not= q)\\
+&\quad + P(1st = d,\; 1st \not= q,\; 2nd = d,\; 2nd = q)\\
+&= \frac{1}{52} \cdot \frac{12}{51} + \frac{12}{52} \cdot \frac{1}{51}\\
+&= \boxed{\frac{2}{221}}\\
+p_{X, Y}(2, 2) &= P(1st = d,\; 1st = q,\; 2nd = d,\; 2nd = q)\\
+&= \frac{1}{52} \cdot 0\\ 
+&= \boxed{0}\\
+\end{align*}
+\\
+\\
+\\
+2.
+\begin{align*}
+P_X(0) &= \frac{105}{221} + \frac{18}{221} + \frac{1}{442}\\
+&= \boxed{\frac{19}{34}}\\
+p_X(1) &= \frac{72}{221} + \frac{12}{221} + \frac{1}{442}\\
+&= \boxed{\frac{13}{34}}\\
+p_X(2) &= \frac{11}{221} + \frac{2}{221} + 0\\
+&= \boxed{\frac{1}{17}}\\
+\sum_{i = 0}^3 p_X(i) &= \frac{19}{34} + \frac{13}{34} + \frac{1}{17} = 1\\
+\end{align*}
+\begin{align*}
+p_Y(0) &= \frac{105}{221} + \frac{72}{221} + \frac{11}{221}\\
+&= \boxed{\frac{188}{221}}\\
+p_Y(1) &= \frac{18}{221} + \frac{12}{221} + \frac{2}{221}\\
+&= \boxed{\frac{32}{221}}\\
+p_Y(2) &= \frac{1}{442} + \frac{1}{442}\\
+&= \boxed{\frac{1}{221}}\\
+\sum_{i = 1}^3 p_Y(i) &= \frac{188}{221} + \frac{32}{221} + \frac{1}{221} = 1\\
+\end{align*}
+\\
+\\
+\\
+\\
+3.
+\begin{align*}
+P(Y \geq 1 \;|\; X \geq 1) &= \frac{P(Y \geq 1,\; X \geq 1)}{P(X \geq 1)}\\
+&= \frac{p_{X, Y}(1, 1) + p_{X, Y}(1, 2) + p_{X, Y}(2, 0) + p_{X, Y}(2, 1) + p_{X, Y}(2, 2)}{p_{X}(1) + p_{X}(2)}\\
+&= {\large\frac{\frac{12}{221} + \frac{1}{442} + \frac{11}{221} + \frac{2}{221}}{\frac{13}{34} + \frac{1}{17}}}\\
+&= \frac{17}{65}\\
+\end{align*}
+\newpage
+\noindent
+Problem 3\\
+1\\
+$\mathcal{X}$ := random variable corresponding to number of failures of system $X$\\
+$\mathcal{Y}$ := random variable corresponding to number of failures of system $Y$\\
+\\
+$Y$ has at least two failures per day:
+\begin{align*}
+P(\mathcal{Y} \geq 2) &= 0.5 + 0.17 + 0.03 = \boxed{0.7}\\
+\end{align*}
+the number of failures of $X$ is strictly less than 2, and the number of failures of $Y$ is greater than or equal to 3:
+\begin{align*}
+P(\mathcal{X} < 2,\; \mathcal{Y} \geq 3) &= p_{\mathcal{X}, \mathcal{Y}}(0, 3) + p_{\mathcal{X}, \mathcal{Y}}(0, 4) + p_{\mathcal{X}, \mathcal{Y}}(1, 3) + p_{\mathcal{X}, \mathcal{Y}}(1, 4)\\
+&= p_{\mathcal{X}}(0) \cdot p_{\mathcal{Y}}(3) + p_{\mathcal{X}}(0) \cdot p_{\mathcal{Y}}(4) + p_{\mathcal{X}}(1) \cdot p_{\mathcal{Y}}(3) + p_{\mathcal{X}}(1) \cdot p_{\mathcal{Y}}(4)\\
+&= (0.07)(0.17) + (0.07)(0.03) + (0.35)(0.17) + (0.35)(0.03)\\
+&= \boxed{0.084}\\
+\end{align*}
+there is only one failure in the day
+\begin{align*}
+P(\text{number of failure } = 1) &= p_{\mathcal{X}, \mathcal{Y}}(0, 1) + p_{\mathcal{X}, \mathcal{Y}}(1, 0)\\
+&= p_{\mathcal{X}}(0) \cdot p_{\mathcal{Y}}(1) + p_{\mathcal{X}}(1) \cdot p_{\mathcal{Y}}(0)\\
+&= (0.07)(0.2) + (0.35)(0.1)\\
+&= \boxed{0.049}\\
+\end{align*}
+$X$ has the same number of failures as $Y$
+\begin{align*}
+P(\mathcal{X} = \mathcal{Y}) &= p_{\mathcal{X}, \mathcal{Y}}(0, 0) + p_{\mathcal{X}, \mathcal{Y}}(1, 1) + p_{\mathcal{X}, \mathcal{Y}})(2, 2) + p_{\mathcal{X}, \mathcal{Y}}(3, 3) + p_{\mathcal{X}, \mathcal{Y}}(4, 4)\\
+&= p_{\mathcal{X}}(0) \cdot p_{\mathcal{Y}}(0) + p_{\mathcal{X}}(1) \cdot p_{\mathcal{Y}}(1) + p_{\mathcal{X}}(2) \cdot p_{\mathcal{Y}}(2) + p_{\mathcal{X}}(3) \cdot p_{\mathcal{Y}}(3) + p_{\mathcal{X}}(4) \cdot p_{\mathcal{Y}}(4)\\
+&= (0.07)(0.1) + (0.35)(0.2) + (0.34)(0.5) + (0.18)(0.17) + (0.06)(0.03)\\
+&= \boxed{0.2794}\\
+\end{align*}
+\\
+\\
+\\
+\\
+2.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}\hline
+\diagbox[width = 2cm, height = 1cm]{$\mathcal{X}$}{$\mathcal{Y}$} & 0 & 1 & 2 & 3 & 4 & & $p_X(x)$\\ \hline
+0 & $\Centerstack{(0.07)(0.1) \\ = 0.007}$ & $\Centerstack{(0.07)(0.2) \\ = 0.014}$ & $\Centerstack{(0.07)(0.5) \\ = 0.035}$ & $\Centerstack{(0.07)(0.17) \\ = 0.0119}$ & $\Centerstack{(0.07)(0.03) \\ = 0.0021}$ & & 0.07\\ \hline
+1 & $\Centerstack{(0.35)(0.1) \\ = 0.035}$ & $\Centerstack{(0.35)(0.2) \\ = 0.07}$ & $\Centerstack{(0.35)(0.5) \\ = 0.175}$ & $\Centerstack{(0.35)(0.17) \\ = 0.0595}$ & $\Centerstack{(0.35)(0.03) \\ = 0.0105}$ & & 0.35\\ \hline
+2 & $\Centerstack{(0.34)(0.1) \\ = 0.034}$ & $\Centerstack{(0.34)(0.2) \\ = 0.068}$ & $\Centerstack{(0.34)(0.5) \\ = 0.17}$ & $\Centerstack{(0.34)(0.17) \\ = 0.0578}$ & $\Centerstack{(0.34)(0.03) \\ = 0.0102}$ & & 0.34\\ \hline
+3 & $\Centerstack{(0.18)(0.1) \\ = 0.018}$ & $\Centerstack{(0.18)(0.2) \\ = 0.036}$ & $\Centerstack{(0.18)(0.5) \\ = 0.09}$ & $\Centerstack{(0.18)(0.17) \\ = 0.0306}$ & $\Centerstack{(0.18)(0.03) \\ = 0.0054}$ & & 0.18\\ \hline
+4 & $\Centerstack{(0.06)(0.1) \\ = 0.006}$ & $\Centerstack{(0.06)(0.2) \\ = 0.012}$ & $\Centerstack{(0.06)(0.5) \\ = 0.03}$ & $\Centerstack{(0.06)(0.17) \\ = 0.0102}$ & $\Centerstack{(0.06)(0.03) \\ = 0.0018}$ & & 0.06\\ \hline
+& & & & & & &\\ \hline
+$p_Y(y)$ & 0.1 & 0.2 & 0.5 & 0.17 & 0.03 & & 1\\ \hline
+\end{tabular}
+\end{center}
+\begin{align*}
+p_{\mathcal{X}}(0) &= 0.007 + 0.014 + 0.035 + 0.0119 + 0.0021\\
+&= 0.07\\
+p_{\mathcal{X}}(1) &= 0.035 + 0.07 + 0.175 + 0.0595 + 0.0105\\
+&= 0.35\\
+p_{\mathcal{X}}(2) &= 0.034 + 0.068 + 0.17 + 0.0578 + 0.0102\\
+&= 0.34\\
+p_{\mathcal{X}}(3) &= 0.018 + 0.036 + 0.09 + 0.0306 + 0.0054\\
+&= 0.18\\
+p_{\mathcal{X}}(4) &= 0.006 + 0.012 + 0.03 + 0.0102 + 0.0018\\
+&= 0.06\\
+\sum_{i = 0}^4 p_{\mathcal{X}}(i) &= 0.07 + 0.35 + 0.34 + 0.18 + 0.06\\
+&= 1\\
+\end{align*}
+\begin{align*}
+p_{\mathcal{Y}}(0) &= 0.007 + 0.035 + 0.034 + 0.018 + 0.006\\
+&= 0.1\\
+p_{\mathcal{Y}}(1) &= 0.014 + 0.07 + 0.068 + 0.036 + 0.012\\ 
+&= 0.2\\
+p_{\mathcal{Y}}(2) &= 0.035 + 0.175 + 0.17 + 0.09 + 0.03\\
+&= 0.5\\
+p_{\mathcal{Y}}(3) &= 0.0119 + 0.0595 + 0.0578 + 0.0306 + 0.0102\\ 
+&= 0.17\\
+p_{\mathcal{Y}}(4) &= 0.0021 + 0.0105 + 0.0102 + 0.0054 + 0.0018\\
+&= 0.03\\\
+\sum_{i = 0}^4 p_{\mathcal{Y}}(i) &= 0.1 + 0.2 + 0.5 + 0.17 + 0.03\\
+&= 1\\
+\end{align*}
+\\
+\\
+\\
+\\
+3.
+\begin{align*}
+E[\mathcal{X}] &= \sum_{i = 0}^4 x_i p_{\mathcal{X}}(x_i)\\
+&= 0 \cdot p_{\mathcal{X}}(0) + 1 \cdot p_{\mathcal{X}}(1) + 2 \cdot p_{\mathcal{X}}(2) + 3 \cdot p_{\mathcal{X}}(3) + 4 \cdot p_{\mathcal{X}}(4)\\
+&= (0)(0.07) + (1)(0.35) + (2)(0.34) + (3)(0.18) + (4)(0.06)\\
+&= \boxed{1.81}\\
+E[\mathcal{Y}] &= \sum_{i = 0}^4 y_i p_{\mathcal{Y}}(y_i)\\
+&= 0 \cdot p_{\mathcal{Y}}(0) + 1 \cdot p_{\mathcal{Y}}(1) + 2 \cdot p_{\mathcal{Y}}(2) + 3 \cdot p_{\mathcal{Y}}(3) + 4 \cdot p_{\mathcal{Y}}(4)\\
+&= (0)(0.1) + (1)(0.2) + (2)(0.5) + (3)(0.17) + (4)(0.03)\\
+&= \boxed{1.83}\\
+\end{align*}
+\newpage
+\noindent
+Problem 4
+{\large
+\begin{table}[!ht]
+    \centering
+        \begin{tabular}{|c|c|c|c|c|c|c|c|} \cline{3-8}
+            \multicolumn{2}{c}{} & \multicolumn{5}{|c|}{$x$} & \multicolumn{1}{c|}{\multirow{2}{*}{$p_Y(y)$}}\\ \cline{3-7}
+            \multicolumn{2}{c|}{} & 1 & 2 & 3 & 4 & 5 &\\ \hline
+            \multirow{5}{*}{$y$} & 1 & & & & & & 5/14\\ \cline{2-8}
+             & 2 & & & & & & 4/14\\ \cline{2-8}
+             & 3 & & & & & & 2/14\\ \cline{2-8}
+             & 4 & & & & & & 2/14\\ \cline{2-8}
+             & 5 & & & & & & 1/14\\ \hline
+             \multicolumn{2}{|c|}{$p_X(x)$} & 1/14 & 5/14 & 4/14 & 2/14 & 2/14 & 1\\ \hline
+        \end{tabular}
+\end{table}
+}
+\end{document}

@@ -246,13 +246,77 @@ Problem 4
         \begin{tabular}{|c|c|c|c|c|c|c|c|} \cline{3-8}
             \multicolumn{2}{c}{} & \multicolumn{5}{|c|}{$x$} & \multicolumn{1}{c|}{\multirow{2}{*}{$p_Y(y)$}}\\ \cline{3-7}
             \multicolumn{2}{c|}{} & 1 & 2 & 3 & 4 & 5 &\\ \hline
-            \multirow{5}{*}{$y$} & 1 & & & & & & 5/14\\ \cline{2-8}
-             & 2 & & & & & & 4/14\\ \cline{2-8}
-             & 3 & & & & & & 2/14\\ \cline{2-8}
-             & 4 & & & & & & 2/14\\ \cline{2-8}
-             & 5 & & & & & & 1/14\\ \hline
+            \multirow{5}{*}{$y$} & 1 & 1/14 & 1/14 & 1/14 & 1/14 & 1/14 & 5/14\\ \cline{2-8}
+             & 2 & 0 & 1/14 & 1/14 & 1/14 & 1/14 & 4/14\\ \cline{2-8}
+             & 3 & 0 & 1/14 & 1/14 & 0 & 0 & 2/14\\ \cline{2-8}
+             & 4 & 0 & 1/14 & 1/14 & 0 & 0 & 2/14\\ \cline{2-8}
+             & 5 & 0 & 1/14 & 0 & 0 & 0 & 1/14\\ \hline
              \multicolumn{2}{|c|}{$p_X(x)$} & 1/14 & 5/14 & 4/14 & 2/14 & 2/14 & 1\\ \hline
         \end{tabular}
 \end{table}
-}
+}\\
+steps:\\
+fill row $y = 1$\\
+fill column $x = 2$\\
+fill row $y = 5$\\
+fill column $x = 1$\\
+fill row $y = 2$\\
+fill column $x = 3$\\
+fill column $x = 4$\\
+fill column $x = 5$\\
+\newpage
+\noindent
+Problem 5\\
+1.
+\begin{align*}
+ 1 &= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f_{X, Y}(x, y)\,dy\,dx\\
+&= \int_{0}^{\infty} \int_{0}^{\infty} Ke^{-3x - 2y}\,dy\,dx\\
+&= K\int_{0}^{\infty} \int_{0}^{\infty} e^{-3x - 2y}\,dy\,dx\\
+&\text{/* } u := -3x - 2y;\quad \partial u = -2 \partial y \text{ */}\\
+&= K\int_{0}^{\infty} \frac{1}{-2} \left[e^{-3x - 2y}\right]_{y = 0}^{y = \infty}\,dx\\
+&= -\frac{K}{2}\int_{0}^{\infty} \left[e^{-3x - 2y}\right]_{y = 0}^{y = \infty}\,dx\\
+&= -\frac{K}{2}\int_{0}^{\infty} (e^{-3x} \cdot 0 - e^{-3x})\,dx\\
+&= \frac{K}{2}\int_{0}^{\infty} e^{-3x}\,dx\\
+&\text{/* } u_2 := -3x;\quad du_2 = -3dx \text{ */}\\
+&= - \frac{K}{6} [e^{-3x}]_0^{\infty}\\
+&= - \frac{K}{6} (0  - 1)\\
+&= \frac{K}{6}\\
+\\
+1 &= \frac{K}{6}\\
+K &= \boxed{6}\\
+\end{align*}
+\newpage
+\noindent
+2.
+\begin{align*}
+&a := x; \quad b := y\\
+F_{X, Y}(a, b) &= P(X \leq a, Y \leq b)\\
+&= P(-\infty \leq X \leq a, -\infty \leq Y \leq b)\\
+&= \int_{-\infty}^{a} \int_{-\infty}^{b} f_{X, Y}(x, y)\,dy\,dx\\
+&= \int_{0}^{a} \int_{0}^{b} 6e^{-3x - 2y}\,dy\,dx\\
+&= 6\int_{0}^{a} \int_{0}^{b} e^{-3x - 2y}\,dy\,dx\\
+&\text{/* } u := -3x - 2y;\quad \partial u = -2 \partial y \text{ */}\\
+&= -3\int_{0}^{a} [e^{-3x - 2y}]_{y = 0}^{y = b}\,dx\\ 
+&= -3\int_{0}^{a} (e^{-3x - 2b} - e^{-3x})\,dx\\ 
+&= -3\int_{0}^{a} (-e^{-3x})(e^{-2b} + 1)\,dx\\
+&= 3(e^{-2b} + 1)\int_{0}^{a} e^{-3x}\,dx\\
+&\text{/* } u_2 := -3x;\quad du_2 = -3dx \text{ */}\\
+&= -(e^{-2b} + 1) [e^{-3x}]_0^a\\
+&= -(e^{-2b} + 1)(e^{-3a} - 1)\\
+&= -(e^{-2b - 3a} - e^{-2b} + e^{-3a} - 1)\\
+&= -e^{-2b - 3a} + e^{-2b} - e^{-3a} + 1\\
+\end{align*}
+$\boxed{F_{X, Y}(x, y) =
+\begin{cases}
+-e^{-2y - 3x} + e^{-2y} - e^{-3x} + 1 & \text{if } x > 0,\; y > 0\\
+0 & \text{otherwise}\\
+\end{cases}}$
+\newpage
+\noindent
+3.
+\begin{align*}
+P(X \leq 1, Y \leq 2) &= F_{X, Y}(1, 2)\\
+&= -e^{-2(2) - 3(1)} + e^{-2(2)} - e^{-3(1)} + 1\\
+&= \boxed{-\frac{1}{e^{7}} + \frac{1}{e^{4}} - \frac{1}{e^{3}} + 1}\\
+\end{align*}
 \end{document}

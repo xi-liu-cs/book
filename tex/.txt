@@ -1,0 +1,3 @@
+https://texblog.org/2012/12/21/multi-column-and-multi-row-cells-in-latex-tables/
+
+https://tex.stackexchange.com/questions/64825/remove-border-of-top-left-table-cell

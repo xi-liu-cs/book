@@ -26,11 +26,13 @@
 Problem 1\\
 1.
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|}\hline
-\diagbox[width = 2cm, height = 1cm]{$X$}{$Y$} & -2 & 5 & 8 & $\not\in \{-2,\;5,\;8\}$\\ \hline
-1 & $\Centerstack{(0.7)(0.3) \\ = 0.21}$ & $\Centerstack{(0.7)(0.5) \\ = 0.35}$ & $\Centerstack{(0.7)(0.2) \\ = 0.14}$ & $\Centerstack{(0.7)(0) \\ = 0}$\\ \hline
-2 & $\Centerstack{(0.3)(0.3) \\ = 0.09}$ & $\Centerstack{(0.3)(0.5) \\ = 0.15}$ & $\Centerstack{(0.3)(0.2) \\ = 0.06}$ & $\Centerstack{(0.3)(0) \\ = 0}$\\ \hline
-$\not\in \{1,\;2\}$ & $\Centerstack{(0)(0.3) \\ = 0}$ & $\Centerstack{(0)(0.5) \\ = 0}$ & $\Centerstack{(0)(0.2) \\ = 0}$ & $\Centerstack{(0.3)(0) \\ = 0}$\\ \hline
+\begin{tabular}{|c|c|c|c|c|c|c|}\hline
+\diagbox[width = 2cm, height = 1cm]{$X$}{$Y$} & -2 & 5 & 8 & $\not\in \{-2,\;5,\;8\}$ & & $p_X(x)$\\ \hline
+1 & $\Centerstack{(0.7)(0.3) \\ = 0.21}$ & $\Centerstack{(0.7)(0.5) \\ = 0.35}$ & $\Centerstack{(0.7)(0.2) \\ = 0.14}$ & $\Centerstack{(0.7)(0) \\ = 0}$ & & 0.7\\ \hline
+2 & $\Centerstack{(0.3)(0.3) \\ = 0.09}$ & $\Centerstack{(0.3)(0.5) \\ = 0.15}$ & $\Centerstack{(0.3)(0.2) \\ = 0.06}$ & $\Centerstack{(0.3)(0) \\ = 0}$ & & 0.3\\ \hline
+$\not\in \{1,\;2\}$ & $\Centerstack{(0)(0.3) \\ = 0}$ & $\Centerstack{(0)(0.5) \\ = 0}$ & $\Centerstack{(0)(0.2) \\ = 0}$ & $\Centerstack{(0.3)(0) \\ = 0}$ & & 0\\ \hline
+& & & & & &\\ \hline
+$p_Y(y)$ & 0.3 & 0.5 & 0.2 & 0 & & 1\\ \hline
 \end{tabular}
 \end{center}
 \leavevmode
@@ -141,9 +143,9 @@ p_Y(2) &= \frac{1}{442} + \frac{1}{442}\\
 3.
 \begin{align*}
 P(Y \geq 1 \;|\; X \geq 1) &= \frac{P(Y \geq 1,\; X \geq 1)}{P(X \geq 1)}\\
-&= \frac{p_{X, Y}(1, 1) + p_{X, Y}(1, 2) + p_{X, Y}(2, 0) + p_{X, Y}(2, 1) + p_{X, Y}(2, 2)}{p_{X}(1) + p_{X}(2)}\\
-&= {\large\frac{\frac{12}{221} + \frac{1}{442} + \frac{11}{221} + \frac{2}{221}}{\frac{13}{34} + \frac{1}{17}}}\\
-&= \frac{17}{65}\\
+&= \frac{p_{X, Y}(1, 1) + p_{X, Y}(1, 2) + p_{X, Y}(2, 1) + p_{X, Y}(2, 2)}{p_{X}(1) + p_{X}(2)}\\
+&= {\large\frac{\frac{12}{221} + \frac{1}{442} + \frac{2}{221} + 0}{\frac{13}{34} + \frac{1}{17}}}\\
+&= \frac{29}{195}\\
 \end{align*}
 \newpage
 \noindent
@@ -298,17 +300,16 @@ F_{X, Y}(a, b) &= P(X \leq a, Y \leq b)\\
 &\text{/* } u := -3x - 2y;\quad \partial u = -2 \partial y \text{ */}\\
 &= -3\int_{0}^{a} [e^{-3x - 2y}]_{y = 0}^{y = b}\,dx\\ 
 &= -3\int_{0}^{a} (e^{-3x - 2b} - e^{-3x})\,dx\\ 
-&= -3\int_{0}^{a} (-e^{-3x})(e^{-2b} + 1)\,dx\\
-&= 3(e^{-2b} + 1)\int_{0}^{a} e^{-3x}\,dx\\
+&= -3\int_{0}^{a} (e^{-3x})(e^{-2b} + 1)\,dx\\
+&= -3(e^{-2b} + 1)\int_{0}^{a} e^{-3x}\,dx\\
 &\text{/* } u_2 := -3x;\quad du_2 = -3dx \text{ */}\\
-&= -(e^{-2b} + 1) [e^{-3x}]_0^a\\
-&= -(e^{-2b} + 1)(e^{-3a} - 1)\\
-&= -(e^{-2b - 3a} - e^{-2b} + e^{-3a} - 1)\\
-&= -e^{-2b - 3a} + e^{-2b} - e^{-3a} + 1\\
+&= (e^{-2b} + 1) [e^{-3x}]_0^a\\
+&= (e^{-2b} + 1)(e^{-3a} - 1)\\
+&= e^{-2b - 3a} - e^{-2b} + e^{-3a} - 1\\
 \end{align*}
 $\boxed{F_{X, Y}(x, y) =
 \begin{cases}
--e^{-2y - 3x} + e^{-2y} - e^{-3x} + 1 & \text{if } x > 0,\; y > 0\\
+e^{-2y - 3x} - e^{-2y} + e^{-3x} - 1 & \text{if } x > 0,\; y > 0\\
 0 & \text{otherwise}\\
 \end{cases}}$
 \newpage
@@ -316,7 +317,7 @@ $\boxed{F_{X, Y}(x, y) =
 3.
 \begin{align*}
 P(X \leq 1, Y \leq 2) &= F_{X, Y}(1, 2)\\
-&= -e^{-2(2) - 3(1)} + e^{-2(2)} - e^{-3(1)} + 1\\
-&= \boxed{-\frac{1}{e^{7}} + \frac{1}{e^{4}} - \frac{1}{e^{3}} + 1}\\
+&= e^{-2(2) - 3(1)} - e^{-2(2)} + e^{-3(1)} - 1\\
+&= \boxed{\frac{1}{e^{7}} - \frac{1}{e^{4}} + \frac{1}{e^{3}} - 1}\\
 \end{align*}
 \end{document}

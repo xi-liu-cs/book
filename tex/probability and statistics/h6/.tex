@@ -300,16 +300,16 @@ F_{X, Y}(a, b) &= P(X \leq a, Y \leq b)\\
 &\text{/* } u := -3x - 2y;\quad \partial u = -2 \partial y \text{ */}\\
 &= -3\int_{0}^{a} [e^{-3x - 2y}]_{y = 0}^{y = b}\,dx\\ 
 &= -3\int_{0}^{a} (e^{-3x - 2b} - e^{-3x})\,dx\\ 
-&= -3\int_{0}^{a} (e^{-3x})(e^{-2b} + 1)\,dx\\
-&= -3(e^{-2b} + 1)\int_{0}^{a} e^{-3x}\,dx\\
+&= -3\int_{0}^{a} (e^{-3x})(e^{-2b} - 1)\,dx\\
+&= -3(e^{-2b} - 1)\int_{0}^{a} e^{-3x}\,dx\\
 &\text{/* } u_2 := -3x;\quad du_2 = -3dx \text{ */}\\
-&= (e^{-2b} + 1) [e^{-3x}]_0^a\\
-&= (e^{-2b} + 1)(e^{-3a} - 1)\\
-&= e^{-2b - 3a} - e^{-2b} + e^{-3a} - 1\\
+&= (e^{-2b} - 1) [e^{-3x}]_0^a\\
+&= (e^{-2b} - 1)(e^{-3a} - 1)\\
+&= e^{-2b - 3a} - e^{-2b} - e^{-3a} + 1\\
 \end{align*}
 $\boxed{F_{X, Y}(x, y) =
 \begin{cases}
-e^{-2y - 3x} - e^{-2y} + e^{-3x} - 1 & \text{if } x > 0,\; y > 0\\
+e^{-2y - 3x} - e^{-2y} - e^{-3x} + 1 & \text{if } x > 0,\; y > 0\\
 0 & \text{otherwise}\\
 \end{cases}}$
 \newpage
@@ -318,6 +318,6 @@ e^{-2y - 3x} - e^{-2y} + e^{-3x} - 1 & \text{if } x > 0,\; y > 0\\
 \begin{align*}
 P(X \leq 1, Y \leq 2) &= F_{X, Y}(1, 2)\\
 &= e^{-2(2) - 3(1)} - e^{-2(2)} + e^{-3(1)} - 1\\
-&= \boxed{\frac{1}{e^{7}} - \frac{1}{e^{4}} + \frac{1}{e^{3}} - 1}\\
+&= \boxed{\frac{1}{e^{7}} - \frac{1}{e^{4}} - \frac{1}{e^{3}} + 1}\\
 \end{align*}
 \end{document}

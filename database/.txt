@@ -1,1 +1,3 @@
 https://www.codeguru.com/database/database-programming-with-c-c/
+
+https://docs.microsoft.com/en-us/sql/odbc/microsoft-open-database-connectivity-odbc?view=sql-server-ver15

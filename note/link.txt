@@ -1,8 +1,8 @@
-* math
+math
 
 https://github.com/rossant/awesome-math
 
-* music
+music
 
 https://luisaph.github.io/the-code-of-music-UG-spring-2021/
 

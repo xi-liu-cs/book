@@ -4,6 +4,8 @@ https://github.com/rossant/awesome-math
 
 music
 
+https://github.com/juniorxsound/awesome-computer-music
+
 https://luisaph.github.io/the-code-of-music-UG-spring-2021/
 
 http://floss.booktype.pro/csound/a-the-csound-api/

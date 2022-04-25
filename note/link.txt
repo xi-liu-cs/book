@@ -1,1 +1,3 @@
 https://github.com/rossant/awesome-math
+
+https://luisaph.github.io/the-code-of-music-UG-spring-2021/

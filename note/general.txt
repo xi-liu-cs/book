@@ -135,4 +135,9 @@ ____________________________________
 放弃你在长度为两秒的时间
 这些都是最好的纪念
 
+
+
+
 py -m pip install matplotlib
+
+https://askubuntu.com/questions/943006/how-to-navigate-to-c-drive-in-bash-on-wsl-ubuntu

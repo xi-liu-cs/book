@@ -1,3 +1,5 @@
+https://github.com/Apress
+
 math
 
 https://github.com/rossant/awesome-math

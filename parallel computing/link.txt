@@ -1,2 +1,5 @@
-cuda
+professional cuda c programming
 https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf
+
+install cuda
+https://blog.csdn.net/weixin_43848614/article/details/117221384

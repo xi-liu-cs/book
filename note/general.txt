@@ -142,5 +142,5 @@ py -m pip install matplotlib
 
 https://askubuntu.com/questions/943006/how-to-navigate-to-c-drive-in-bash-on-wsl-ubuntu
 
-install centos on windows 
+install cent os on windows 
 https://www.youtube.com/watch?v=A-VZwc-0Y1M

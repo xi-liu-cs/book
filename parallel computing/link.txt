@@ -3,3 +3,6 @@ https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf
 
 install cuda
 https://blog.csdn.net/weixin_43848614/article/details/117221384
+
+cuda driver insufficient
+https://stackoverflow.com/questions/3253257/cuda-driver-version-is-insufficient-for-cuda-runtime-version

@@ -5,3 +5,6 @@ https://link.springer.com/book/10.1007/978-1-4842-4427-2
 
 ray tracing gems 2
 https://link.springer.com/book/10.1007/978-1-4842-7185-8
+
+math for graphics
+https://faculty.cc.gatech.edu/~turk/math_gr.html

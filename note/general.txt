@@ -150,3 +150,8 @@ http://artsites.ucsc.edu/faculty/cope/
 
 anyways とにかく
 https://www.rocketlanguages.com/japanese/lessons/japanese-alphabet
+
+Errors were encountered while processing:
+ /var/cache/apt/archives/libnvidia-compute-418-server_418.226.00-0ubuntu0.20.04.2_amd64.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+https://forums.developer.nvidia.com/t/problem-with-apt-and-nvidia-440-on-ubuntu-20-04/115281/2

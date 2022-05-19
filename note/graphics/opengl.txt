@@ -1,0 +1,2 @@
+Setting up Installing Compiling GLFW Gnu-Make MinGW Cmake on Windows
+https://www.youtube.com/watch?v=LO1LnhWWIow

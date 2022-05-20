@@ -1,1 +1,7 @@
+Setting up Installing Compiling GLFW Gnu-Make MinGW Cmake on Windows
+https://www.youtube.com/watch?v=LO1LnhWWIow
 
+do not create glfw folder in program files folder, since permission error
+
+in cmake-gui:
+cmake install prefix is "C:/glfw/glfw" instead of "C:\glfw\glfw", since syntax error

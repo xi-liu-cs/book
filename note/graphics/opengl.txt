@@ -1,4 +1,4 @@
 Setting up Installing Compiling GLFW Gnu-Make MinGW Cmake on Windows
 https://www.youtube.com/watch?v=LO1LnhWWIow
 
-https://social.technet.microsoft.com/Forums/windows/en-US/1ac44b5a-8439-4be5-80ce-ecd101fe7fa3/program-files-x86-restrictions-with-administrator?forum=win10itprosecurity
+do not create glfw folder in program files folder, since it creates permission error

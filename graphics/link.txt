@@ -8,3 +8,7 @@ https://link.springer.com/book/10.1007/978-1-4842-7185-8
 
 math for graphics
 https://faculty.cc.gatech.edu/~turk/math_gr.html
+
+intro to game programming
+https://github.com/sebastianromerocruz/CS3113-material
+https://github.com/sebastianromerocruz/CS3113-material/tree/main/lectures/introduction

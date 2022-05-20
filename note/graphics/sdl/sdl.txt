@@ -1,0 +1,5 @@
+How to set up SDL2 with Visual Studio EASY C/C++
+https://www.youtube.com/watch?v=PrDdfALWH_4
+
+sdl library documentation
+https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidebasicsinit.html

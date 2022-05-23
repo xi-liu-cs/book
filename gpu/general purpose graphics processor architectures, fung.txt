@@ -25,6 +25,15 @@ nvidia pascal architecture:
 auto transfer data from cpu memory to gpu memory, nvidia unified memory
 
 24
+gpu composed of many cores
+nvidia call them streaming multiprocessors 流式多处理器, advanced micro devices 超微半导体 call them compute units
+each gpu executes a single instruction multiple thread program
+each core on a gpu execute order of thousand threads
+
+threads executing on a single core can communicate through a scratchpad 便签存储器 memory
+large number threads running on a core to hide memory access latency when data is not found in first-level caches
+gddr: graphics double data rate 图像双倍数据传输率存储器
+
 
 
 

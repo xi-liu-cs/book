@@ -1,7 +1,31 @@
 chapter 1
 21
-gpu real time rendering 实时渲染 (real time = response within specified time constraints in milliseconds or microseconds)
+gpu real-time rendering 实时渲染 (real time = response within specified time constraints in milliseconds or microseconds)
 apple a8 processor: more die 裸芯 area to gpu than to cpu
 die = small block of semiconducting material on which a given functional circuit is fabricated
-
 for many decades, increasing performance due to reduced transistor sizes
+
+22
+gpu is unlikely replace cpu entirely
+in present systems gpu are not stand-alone computing devices
+cpu initiate computation on gpu and transfer data to and from gpu
+
+23
+discrete gpu: a bus connecting cpu and gpu
+separate dram memory spaces for cpu (system memory) and gpu (device memory)
+cpu dram: optimized for low latency access (memory latency 延迟 = time delay between initiating a request for a byte or word in memory until it is retrieved by a processor)
+gpu dram: optimized for high throughput 吞吐量 (bits / second, packets / second, amount of data transfered from src to dest over time period) /* bandwidth 带宽 measures maximum capacity of data transfered over time, in bits / second */
+
+integrated cpu and gpu: share single cache and dram memory space
+low-power mobile devices
+
+older discrete gpu:
+cpu portion of program orchestrate movement of data from cpu memory to gpu memory
+nvidia pascal architecture: 
+auto transfer data from cpu memory to gpu memory, nvidia unified memory
+
+24
+
+
+
+

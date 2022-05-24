@@ -7,3 +7,6 @@ discrete gpu: cpu portion of program allocate memory on gpu and initiate transfe
 30
 code carefully optimized for one architecure (gpu) may perform poorly on another (cpu)
 single precision scalar value a times vector value x plus vector value y, a * x + y, known as saxpy
+
+32
+threads of a compute kernel organized into a grid of thread blocks consisting of warps

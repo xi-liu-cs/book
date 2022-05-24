@@ -11,3 +11,50 @@ single precision scalar value a times vector value x plus vector value y, a * x 
 32
 threads of a compute kernel organized into a grid of thread blocks consisting of warps
 warps are grouped into larger unit called cooperative thread array (cta) or thread block by nvidia
+assign each thread a portion of data
+each thread on gpu lookup its identity within grid of blocks of threads
+
+33
+threads within cta communicate with each other via a per compute core scratchpad memory
+this scratchpad is called shared memory by nvidia, local data store (lds) by amd's graphics core next (gcn) architecture
+allocate memory into scratchpad memory using __shared__ in cuda
+scratchpad memory acts as software controlled cache
+
+34
+a level of instruction set virtualization via opengl shading language (ogsl)
+microsoft's high-level shading language (hlsl)
+became common as early gpus became programmable
+nvidia high-level instruction set architecture for gpu = parallel thread execution isa (ptx)
+limitless set of virtual registers
+streaming assembler (sass)
+convert ptx to sass can be done by gpu driver or "ptxas" program provided with cuda toolkit
+
+35
+/* https://www.cs.uaf.edu/2011/spring/cs641/lecture/03_03_CUDA_PTX.html
+cuda "threadIdx.x" is ptx "%tid.x"
+cuda "blockIdx.x" is ptx "%ctaid.x"
+cuda "blockDim.x" is ptx "%ntid.x"
+.reg creates a register with the given type and name:
+<n> creates registers numbered 0 through n-1
+".reg .f32 %f<3>" creates %f0, %f1, and %f2, all of them 32-bit floats
+
+parallel thread execution isa 32
+state space is a storage area with characteristics. all variables reside in some state space
+characteristics include size, addressability, access speed, access rights, level of sharing between threads
+state spaces:
+.sreg: special read-only registers
+.global: global memory shared by all threads
+.local: local memory private to each thread
+.param: kernel parameters, defined per-grid, or function or local parameters, defined per-thread
+.shared: addressable memory shared between threads in 1 cta
+.tex: global texture memory 纹理存储, 纹理渲染的的图像专用单元 
+
+.pred = predicate 判定 registers, virtual, optional guard predicate (ptx isa 63)
+ld = load a register variable form an addressable state space variable (ptx isa 156)
+mad = multiply two values, optionally extract high or low half or intermediate result, and add a third value. write result into a dest reg (ptx isa 73)
+setp = compare two values, combine result with another predicate value by applying a boolean operator. result is written to first dest operand (ptx isa 131)
+@ = predicated execution. @(!)p   instruction. execute an instruction for threads that have the guard predicate true (ptx isa 191)
+bra = branch to a target and continue execution there (ptx isa 192)
+cvta = convert address from const, global, local, or shared state space to generic, or vice versa (ptx isa 165)
+fma = fused multiply-add with no loss of precision in the intermediate product and addition (ptx isa 128)
+st = store a register variable to an addressable state space variable (ptx isa 161) */

@@ -1,1 +1,50 @@
+chapter 1
+21
+gpu real-time rendering 实时渲染 (real time = response within specified time constraints in milliseconds or microseconds)
+apple a8 processor: more die 裸芯 area to gpu than to cpu
+die = small block of semiconducting material on which a given functional circuit is fabricated
+for many decades, increasing performance due to reduced transistor sizes
 
+22
+gpu is unlikely replace cpu entirely
+in present systems gpu are not stand-alone computing devices
+cpu initiate computation on gpu and transfer data to and from gpu
+
+23
+discrete gpu: a bus connecting cpu and gpu
+separate dram memory spaces for cpu (system memory) and gpu (device memory)
+cpu dram: optimized for low latency access (memory latency 延迟 = time delay between initiating a request for a byte or word in memory until it is retrieved by a processor)
+gpu dram: optimized for high throughput 吞吐量 (bits / second, packets / second, amount of data transfered from src to dest over time period) /* bandwidth 带宽 measures maximum capacity of data transfered over time, in bits / second */
+
+integrated cpu and gpu: share single cache and dram memory space
+low-power mobile devices
+
+older discrete gpu:
+cpu portion of program orchestrate movement of data from cpu memory to gpu memory
+nvidia pascal architecture: 
+auto transfer data from cpu memory to gpu memory, nvidia unified memory
+
+24
+gpu composed of many cores
+nvidia call them streaming multiprocessors 流式多处理器, advanced micro devices 超微半导体 call them compute units
+each gpu executes a single instruction multiple thread program
+each core on a gpu execute order of thousand threads
+
+threads executing on a single core can communicate through a scratchpad 便签存储器 memory
+large number threads running on a core to hide memory access latency when data is not found in first-level caches
+gddr: graphics double data rate 图像双倍数据传输率存储器
+
+25
+when large cache shared among small #threads, performance increases with #threads
+if #threads increases to the point that cache cannot hold entire working set, performance decreases
+performance valley may occur if #threads is insufficient to cover off-chip memory access latency
+
+26
+operation             energy (picojoule, 10^{−12} of one joule)
+32 bit int add        0.1
+32 bit float add      0.9
+32 bit int mult       3.1
+32 bit float mult     3.7
+
+nvidia introduced programmability to gpu in form of vertex shaders 
+and pixel shaders in geforce 3

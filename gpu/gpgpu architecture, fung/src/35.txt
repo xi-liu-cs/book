@@ -1,6 +1,7 @@
 https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#cuda-compilation-trajectory
 
 nvcc -keep 31.cu
+then find 31.ptx
 https://stackoverflow.com/questions/20012318/how-to-compile-ptx-code
 
 assemble .ptx files into .o files

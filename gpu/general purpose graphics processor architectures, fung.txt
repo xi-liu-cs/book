@@ -34,7 +34,30 @@ threads executing on a single core can communicate through a scratchpad 便签�
 large number threads running on a core to hide memory access latency when data is not found in first-level caches
 gddr: graphics double data rate 图像双倍数据传输率存储器
 
+25
+when large cache shared among small #threads, performance increases with #threads
+if #threads increases to the point that cache cannot hold entire working set, performance decreases
+performance valley may occur if #threads is insufficient to cover off-chip memory access latency
+
+26
+operation             energy (picojoule, 10^{−12} of one joule)
+32 bit int add        0.1
+32 bit float add      0.9
+32 bit int mult       3.1
+32 bit float mult     3.7
+
+nvidia introduced programmability to gpu in form of vertex shaders 
+and pixel shaders in geforce 3
 
 
 
+chapter 2
+29
+transactional memory 事务存储 attempts to simplify concurrent programming by allowing a group of load and store instructions to execute in an atomic way
+at runtime, gpu hardware executes groups of scalar threads, called warps 调度器或调度单元 (or wavefronts 波阵面 in amd (advanced micro devices 超微半导体) terminology)
+in lockstep 齐步 on simd hardware
+discrete gpu: cpu portion of program allocate memory on gpu and initiate transfer of input data into gpu memory, launch a kernel on gpu
 
+30
+code carefully optimized for one architecure (gpu) may perform poorly on another (cpu)
+single precision scalar value a times vector value x plus vector value y, a * x + y, known as saxpy

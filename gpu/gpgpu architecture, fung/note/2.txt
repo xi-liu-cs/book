@@ -1,1 +1,9 @@
+29
+transactional memory 事务存储 attempts to simplify concurrent programming by allowing a group of load and store instructions to execute in an atomic way
+at runtime, gpu hardware executes groups of scalar threads, called warps 调度器或调度单元 (or wavefronts 波阵面 in amd (advanced micro devices 超微半导体) terminology)
+in lockstep 齐步 on simd hardware
+discrete gpu: cpu portion of program allocate memory on gpu and initiate transfer of input data into gpu memory, launch a kernel on gpu
 
+30
+code carefully optimized for one architecure (gpu) may perform poorly on another (cpu)
+single precision scalar value a times vector value x plus vector value y, a * x + y, known as saxpy

@@ -10,3 +10,4 @@ single precision scalar value a times vector value x plus vector value y, a * x 
 
 32
 threads of a compute kernel organized into a grid of thread blocks consisting of warps
+warps are grouped into larger unit called cooperative thread array (cta) or thread block by nvidia

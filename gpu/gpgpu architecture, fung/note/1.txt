@@ -1,4 +1,3 @@
-chapter 1
 21
 gpu real-time rendering 实时渲染 (real time = response within specified time constraints in milliseconds or microseconds)
 apple a8 processor: more die 裸芯 area to gpu than to cpu

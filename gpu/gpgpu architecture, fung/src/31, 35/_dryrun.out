@@ -1,0 +1,27 @@
+_SPACE_=
+_CUDART_=cudart
+_HERE_=/usr/local/cuda/bin
+_THERE_=/usr/local/cuda/bin
+_TARGET_SIZE_=
+_TARGET_DIR_=
+_TARGET_DIR_=targets/x86_64-linux
+TOP=/usr/local/cuda/bin/..
+NVVMIR_LIBRARY_DIR=/usr/local/cuda/bin/../nvvm/libdevice
+LD_LIBRARY_PATH=/usr/local/cuda/bin/../lib:/usr/local/cuda/lib64:
+PATH=/usr/local/cuda/bin/../nvvm/bin:/usr/local/cuda/bin:/usr/local/stow/mongodb-4.0/bin:/home/xl3504/bin:/usr/local/bin:/opt/bin:/usr/bin:/usr/sbin:/usr/lib64/qt-3.3/bin:/home/xl3504/perl5/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+INCLUDES="-I/usr/local/cuda/bin/../targets/x86_64-linux/include"
+LIBRARIES=  "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib"
+CUDAFE_FLAGS=
+PTXAS_FLAGS=
+rm a_dlink.reg.c
+gcc -D__CUDA_ARCH__=300 -E -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda/bin/../targets/x86_64-linux/include"    -D__CUDACC_VER_MAJOR__=10 -D__CUDACC_VER_MINOR__=1 -D__CUDACC_VER_BUILD__=243 -include "cuda_runtime.h" -m64 "test.cu" > "test.cpp1.ii"
+cicc --gnu_version=40805 --allow_managed   -arch compute_30 -m64 -ftz=0 -prec_div=1 -prec_sqrt=1 -fmad=1 --include_file_name "test.fatbin.c" -tused -nvvmir-library "/usr/local/cuda/bin/../nvvm/libdevice/libdevice.10.bc" --gen_module_id_file --module_id_file_name "test.module_id" --orig_src_file_name "test.cu" --gen_c_file_name "test.cudafe1.c" --stub_file_name "test.cudafe1.stub.c" --gen_device_file_name "test.cudafe1.gpu"  "test.cpp1.ii" -o "test.ptx"
+ptxas -arch=sm_30 -m64  "test.ptx"  -o "test.sm_30.cubin"
+fatbinary --create="test.fatbin" -64 "--image=profile=sm_30,file=test.sm_30.cubin" "--image=profile=compute_30,file=test.ptx" --embedded-fatbin="test.fatbin.c"
+gcc -E -x c++ -D__CUDACC__ -D__NVCC__  "-I/usr/local/cuda/bin/../targets/x86_64-linux/include"    -D__CUDACC_VER_MAJOR__=10 -D__CUDACC_VER_MINOR__=1 -D__CUDACC_VER_BUILD__=243 -include "cuda_runtime.h" -m64 "test.cu" > "test.cpp4.ii"
+cudafe++ --gnu_version=40805 --allow_managed  --m64 --parse_templates --gen_c_file_name "test.cudafe1.cpp" --stub_file_name "test.cudafe1.stub.c" --module_id_file_name "test.module_id" "test.cpp4.ii"
+gcc -D__CUDA_ARCH__=300 -c -x c++  -DCUDA_DOUBLE_MATH_FUNCTIONS "-I/usr/local/cuda/bin/../targets/x86_64-linux/include"   -m64 -o "test.o" "test.cudafe1.cpp"
+nvlink --arch=sm_30 --register-link-binaries="a_dlink.reg.c"  -m64   "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib" -cpu-arch=X86_64 "test.o"  -o "a_dlink.sm_30.cubin"
+fatbinary --create="a_dlink.fatbin" -64 -link "--image=profile=sm_30,file=a_dlink.sm_30.cubin" --embedded-fatbin="a_dlink.fatbin.c"
+gcc -c -x c++ -DFATBINFILE="\"a_dlink.fatbin.c\"" -DREGISTERLINKBINARYFILE="\"a_dlink.reg.c\"" -I. -D__NV_EXTRA_INITIALIZATION= -D__NV_EXTRA_FINALIZATION= -D__CUDA_INCLUDE_COMPILER_INTERNAL_HEADERS__  "-I/usr/local/cuda/bin/../targets/x86_64-linux/include"    -D__CUDACC_VER_MAJOR__=10 -D__CUDACC_VER_MINOR__=1 -D__CUDACC_VER_BUILD__=243 -m64 -o "a_dlink.o" "/usr/local/cuda/bin/crt/link.stub"
+g++ -m64 -o "a.out" -Wl,--start-group "a_dlink.o" "test.o"   "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib/stubs" "-L/usr/local/cuda/bin/../targets/x86_64-linux/lib" -lcudadevrt  -lcudart_static  -lrt -lpthread  -ldl  -Wl,--end-group

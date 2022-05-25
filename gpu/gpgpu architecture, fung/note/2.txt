@@ -58,3 +58,9 @@ bra = branch to a target and continue execution there (ptx isa 192)
 cvta = convert address from const, global, local, or shared state space to generic, or vice versa (ptx isa 165)
 fma = fused multiply-add with no loss of precision in the intermediate product and addition (ptx isa 128)
 st = store a register variable to an addressable state space variable (ptx isa 161) */
+
+36
+both ptx and sass are risc
+risc = reduced instruction set computer 精简指令集计算机
+ptx has infinite set of registers, each definition uses a new register like static single assignment
+sass uses a limited set of registers 

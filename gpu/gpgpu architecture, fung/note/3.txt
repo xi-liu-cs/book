@@ -1,1 +1,14 @@
+41
+while amount of on-chip mem storage per thread is small, caches can reduce a sizable number of off-chip mem accesses
+spatial locality between adjacent pixel operations that can be captured by on-chip caches
+pipeline: simt front-end, simd back-end
+3 scheduling loops in a pipeline: instruction fetch, instruction issue, register access scheduling 
 
+42
+one-loop approx:
+unit of scheduling is a warp 弯曲
+in each cycle, hardware selects a warp for scheduling 
+in time.h, CLOCKS_PER_SEC = 10^6
+10^6 clocks in 1 second
+warp's %rip is used to access an instruction mem to find next instruction to execute for warp
+a given function unit supports only a subset of instructions

@@ -51,13 +51,31 @@ state spaces:
 
 .pred = predicate 判定 registers, virtual, optional guard predicate (ptx isa 63)
 ld = load a register variable form an addressable state space variable (ptx isa 156)
+   ld.type d, [a]
+   load register variable "d" from the location specified by the source address operand "a" in specified state space
 mad = multiply two values, optionally extract high or low half or intermediate result, and add a third value. write result into a dest reg (ptx isa 73)
-setp = compare two values, combine result with another predicate value by applying a boolean operator. result is written to first dest operand (ptx isa 131)
-@ = predicated execution. @(!)p   instruction. execute an instruction for threads that have the guard predicate true (ptx isa 191)
+set = half precision comparison instruction (ptx isa 135)
+    set.cmp_op d, a, b
+    operand d has type specified by instruction. operands a and b have type .stype
+setp = compare two values, optionally combine result with another predicate value by applying a boolean operator. result is written to first dest operand (ptx isa 131)
+@ = predicated execution. @(!)p means @p or @!p. the guard predicate follows the optional label and precedes the opcode, and is written as @p, where p is a predicate register (ptx isa 25). execute an instruction for threads that have the guard predicate true (ptx isa 191)
 bra = branch to a target and continue execution there (ptx isa 192)
+    @p bra target; // direct branch, target is a label
+       bra target; // unconditional branch
 cvta = convert address from const, global, local, or shared state space to generic, or vice versa (ptx isa 165)
+     // convert const, global, local, or shared address to generic address
+    cvta.space.size p, a; // source address in register a
+    cvta.space.size p, var; // get generic address of var
+    cvta.space.size p, var+imm; // generic address of var+offset
+    // convert generic address to const, global, local, or shared address
+    cvta.to.space.size p, a;
+    .space = { .const, .global, .local, .shared };
+    .size = { .u32, .u64 };
 fma = fused multiply-add with no loss of precision in the intermediate product and addition (ptx isa 128)
+      fma d, a, b, c; d = a * b + c
 st = store a register variable to an addressable state space variable (ptx isa 161) */
+   st.type [a], b
+   store the value of register variable "b" in the location specified by the destination address operand "a" in specified state space
 
 36
 both ptx and sass are risc
@@ -69,6 +87,7 @@ streaming assembler (sass) are extracted with nvidia's cuobjdump
 https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html
 https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html#instruction-set-ref
 
+37
 rx  reg
 c[x][y] constant mem
 s2r special reg to reg (miscellaneous instructions)
@@ -78,3 +97,22 @@ cuobjdump a.out -sass -ptx
 
 floating point instructions
 ffma  floating point 32 fused multiply add
+sr_ctaid = special register cooperative thread array id (blockIdx)
+sr_tid = special register thread id (threadIdx)
+xmad = integer short multiply add instruction
+exec = special register used to predicate execution of individual vector lanes for simt execution
+
+41
+while amount of on-chip mem storage per thread is small, caches can reduce a sizable number of off-chip mem accesses
+spatial locality between adjacent pixel operations that can be captured by on-chip caches
+pipeline: simt front-end, simd back-end
+3 scheduling loops in a pipeline: instruction fetch, instruction issue, register access scheduling 
+
+42
+one-loop approx:
+unit of scheduling is a warp 弯曲
+in each cycle, hardware selects a warp for scheduling 
+in time.h, CLOCKS_PER_SEC = 10^6
+10^6 clocks in 1 second
+warp's %rip is used to access an instruction mem to find next instruction to execute for warp
+a given function unit supports only a subset of instructions

@@ -64,3 +64,17 @@ both ptx and sass are risc
 risc = reduced instruction set computer 精简指令集计算机
 ptx has infinite set of registers, each definition uses a new register like static single assignment
 sass uses a limited set of registers 
+
+streaming assembler (sass) are extracted with nvidia's cuobjdump
+https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html
+https://docs.nvidia.com/cuda/cuda-binary-utilities/index.html#instruction-set-ref
+
+rx  reg
+c[x][y] constant mem
+s2r special reg to reg (miscellaneous instructions)
+
+generate sass and ptx files:
+cuobjdump a.out -sass -ptx
+
+floating point instructions
+ffma  floating point 32 fused multiply add

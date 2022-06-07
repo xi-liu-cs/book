@@ -1,0 +1,6 @@
+computer network system approach, davie
+https://cseweb.ucsd.edu/classes/wi19/cse124-a/courseoverview/compnetworks.pdf
+https://book.systemsapproach.org/
+
+computer network top down approach, ross
+https://eclass.teicrete.gr/modules/document/file.php/TP326/%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B1%20(Lectures)/Computer_Networking_A_Top-Down_Approach.pdf

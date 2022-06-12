@@ -1,3 +1,6 @@
 https://github.com/YuxuanLing/books
 
 https://github.com/lancetw/ebook-1
+
+unix programming environment, brian
+http://files.catwell.info/misc/mirror/the-unix-programming-environment-kernighan-pike.pdf

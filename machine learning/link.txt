@@ -1,1 +1,4 @@
 https://github.com/ec2ainun/books-ML-and-DL
+
+reinforcement learning, sutton
+http://incompleteideas.net/book/RLbook2020.pdf

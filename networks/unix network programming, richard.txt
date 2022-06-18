@@ -1,1 +1,2 @@
-https://github.com/hailinzeng/Unix-Network-Programming
+https://mathcs.clarku.edu/~jbreecher/cs280/UNIX%20Network%20Programming(Volume1,3rd).pdf
+http://www.cs.kent.edu/~javed/internetbook/programs/TCP-client-server/unp.h

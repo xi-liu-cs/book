@@ -1,2 +1,5 @@
 0
 https://cseweb.ucsd.edu//classes/fa12/cse260-b/Lectures/Lec09.pdf
+
+1
+https://cvw.cac.cornell.edu/gpu/thread_div#:~:text=Introduction%20to%20GPGPU%20and%20CUDA%20Programming%3A%20Thread%20Divergence,instruction%20at%20the%20same%20time.

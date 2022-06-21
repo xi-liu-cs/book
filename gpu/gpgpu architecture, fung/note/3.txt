@@ -1,7 +1,7 @@
 41
 while amount of on-chip mem storage per thread is small, caches can reduce a sizable number of off-chip mem accesses
 spatial locality between adjacent pixel operations that can be captured by on-chip caches
-pipeline: simt front-end, simd back-end
+pipeline: simt (single instruction multiple threads) front-end, simd (single instruction multiple data) back-end
 3 scheduling loops in a pipeline: instruction fetch, instruction issue, register access scheduling 
 
 42
@@ -12,3 +12,27 @@ in time.h, CLOCKS_PER_SEC = 10^6
 10^6 clocks in 1 second
 warp's %rip is used to access an instruction mem to find next instruction to execute for warp
 a given function unit supports only a subset of instructions
+
+43
+abstraction that individual threads execute independently
+
+45
+serialize execution of threads following diff paths within a warp
+
+46
+simt deadlock
+stack-based simt can lead to deadlock
+new thread divergence management approach: independent thread scheduling (its)
+/* thread divergence:
+- all the threads in a warp execute the same instruction
+- different control paths are serialized
+- divergence when a predicate is a function of the threadId
+  if(threadId < 2){}
+- no divergence if all follow the same path within a warp
+  if(threadId / WARP_SIZE < 2){}
+- we can have different control paths within the thread block
+https://cseweb.ucsd.edu//classes/fa12/cse260-b/Lectures/Lec09.pdf */
+a: *mutex = 0;
+b: while(!atomicCAS(mutex, 0, 1));
+c: /* critical section */
+   atomicExch(mutex, 0);

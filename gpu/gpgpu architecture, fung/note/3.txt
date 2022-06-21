@@ -36,3 +36,11 @@ a: *mutex = 0;
 b: while(!atomicCAS(mutex, 0, 1));
 c: /* critical section */
    atomicExch(mutex, 0);
+
+mutex initialized to 0 to indicate it is free
+atomicCAS: compare-and-swap operation on the memory location containing mutex
+          - compare contents of mutex with second input 0
+            if(mutex current value == 0)
+              update value of mutex to third input 1
+          - return original value of mutex
+/* see operating system/9.27/handout05.pdf */

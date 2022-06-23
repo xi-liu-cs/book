@@ -1,0 +1,88 @@
+\documentclass[12pt,border=4pt,multi]{article} % \documentclass[tikz,border=4pt,multi]{article}
+\usepackage{lingmacros}
+\usepackage{tree-dvips}
+\usepackage{amssymb} % for mathbb{}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{forest}
+\usepackage{amsmath} % for matrices
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage[arrowdel]{physics}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{pgfplots, pgfplotstable}
+\usepackage{diagbox} % diagonal line in cell
+\usepackage[usestackEOL]{stackengine}
+\usepackage{multirow}
+\graphicspath{{./img}} % specify the graphics path to be relative to the main .tex file, denoting the main .tex file directory as ./
+\newcommand\Myperm[2][^n]{\prescript{#1\mkern-2.5mu}{}P_{#2}}
+\newcommand\Mycomb[2][^n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+\definecolor{orchid}{rgb}{0.7, 0.4, 1.1}
+
+\begin{document}
+\section*{}
+\begin{verbatim}
+119
+cramer's rule
+https://en.wikipedia.org/wiki/Cramer's_rule
+Ax = b
+x.numerator = replace(A.col1, b)
+y.numerator = replace(A.col2, b)
+z.numerator = replace(A.col3, b)
+\end{verbatim}
+120\\
+for a matrix \textbf{A} and vector \textbf{v}\\
+stretched or compressed \textbf{v}, but its direction has not changed\\
+scale factor $\lambda$ is eigenvalue associated with eigenvector \textbf{a}
+\begin{align*}
+\textbf{Av} &= \lambda\textbf{v}\\
+\textbf{Av} &= \lambda\textbf{Iv}\\
+\textbf{Av - $\lambda$Iv} &= 0\\
+\textbf{(A - $\lambda$I)v} &= 0\\
+\text{/* }
+\begin{pmatrix}
+a_{11} - \lambda & a_{12}\\
+a_{21} & a_{22} - \lambda
+\end{pmatrix}
+\begin{pmatrix}
+v_1\\
+v_2
+\end{pmatrix} &=
+\begin{pmatrix}
+0\\
+0
+\end{pmatrix}\\
+(a_{11} - \lambda)v_1 + (a_{12})v_2 &= 0\\
+(a_{21})v_1 + (a_{22} - \lambda)v_2 &= 0\\
+v_1 
+\begin{pmatrix}
+a_{11} - \lambda\\
+a_{21}
+\end{pmatrix}
++
+v_2
+\begin{pmatrix}
+a_{12}\\
+a_{22} - \lambda
+\end{pmatrix}
+&= 0 
+\end{align*}
+so column 1 or 2 of \textbf{A} can be made full of zeros after elementary column operations. determinant does not change after elementary operations
+\begin{verbatim}
+http://thejuniverse.org/PUBLIC/LinearAlgebra/MATH-232/
+Unit.3/Presentation.1/Section3A/rowColCalc.html
+\end{verbatim}
+when 1 column of \textbf{A} is full of zeros, det(\textbf{A}) = ad - bc = 0d - b0 = 0 */
+\begin{align*}
+\det(\textbf{A - $\lambda$I}) &= 0\\
+\begin{vmatrix}
+a_{11} - \lambda & a_{12}\\
+a_{21} & a_{22} - \lambda
+\end{vmatrix} 
+&= (a_{11} - \lambda)(a_{22} - \lambda) - a_{12} a_{21}\\
+&= a_{11} a_{22} - a_{11} \lambda - \lambda a_{22} + \lambda^2 - a_{12} a_{21}\\
+&= \lambda^2 - (a_{11} + a_{22})\lambda + (a_{11} a_{22} - a_{12} a_{21})\\ 
+&= 0\\
+\end{align*}
+\end{document}

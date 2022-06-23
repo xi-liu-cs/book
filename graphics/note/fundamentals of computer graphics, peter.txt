@@ -1,0 +1,7 @@
+119
+cramer's rule
+https://en.wikipedia.org/wiki/Cramer's_rule
+Ax = b
+x.numerator = replace(A.col1, b)
+y.numerator = replace(A.col2, b)
+z.numerator = replace(A.col3, b)

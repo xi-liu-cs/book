@@ -22,6 +22,61 @@
 
 \begin{document}
 \section*{}
+61
+\begin{align*}
+\textbf{p} &= \textbf{a} + \beta(\textbf{b - a}) + \gamma(\textbf{c - a})\\
+&= \textbf{a} + \beta\textbf{b} - \beta\textbf{a} + \gamma\textbf{c} - \gamma\textbf{a}\\
+&= (1 - \beta - \gamma)\textbf{a} + \beta\textbf{b} + \gamma\textbf{c}\\
+\textbf{p - a} &= (- \beta - \gamma)\textbf{a} + \beta\textbf{b} + \gamma\textbf{c}\\
+\begin{pmatrix}
+x_p - x_a\\
+y_p - y_a
+\end{pmatrix}
+&=
+(- \beta - \gamma)
+\begin{pmatrix}
+x_a\\
+y_a
+\end{pmatrix}
++
+\beta
+\begin{pmatrix}
+x_b\\
+y_b
+\end{pmatrix}
++
+\gamma
+\begin{pmatrix}
+x_c\\
+y_c
+\end{pmatrix}
+\\
+\begin{pmatrix}
+x_p - x_a\\
+y_p - y_a
+\end{pmatrix}
+&=
+\begin{pmatrix}
+-\beta x_a - \gamma x_a + \beta x_b + \gamma x_c\\
+-\beta y_a - \gamma y_a + \beta y_b + \gamma y_c
+\end{pmatrix}
+\\
+&= 
+\begin{pmatrix}
+\beta (x_b - x_a) + \gamma (x_c - x_a)\\
+\beta (y_b - y_a) + \gamma (y_c - y_a)
+\end{pmatrix}
+\\
+&=
+\begin{pmatrix}
+x_b - x_a & x_c - x_a\\
+y_b - y_a & y_c - y_a
+\end{pmatrix}
+\begin{pmatrix}
+\beta\\
+\gamma
+\end{pmatrix}
+\end{align*}\\
 \begin{verbatim}
 119
 cramer's rule

@@ -1,2 +1,0 @@
-book
-https://github.com/sarcilav/analisis-numerico/tree/master/doc

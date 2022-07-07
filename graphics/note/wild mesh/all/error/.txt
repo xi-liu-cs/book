@@ -1,1 +1,3 @@
-
+geogram cannot build
+in cmake GUI, add "Win64-vs2015" to field: VORPALINE_PLATFORM
+https://github.com/alicevision/geogram/issues/26

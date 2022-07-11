@@ -2,3 +2,6 @@ https://github.com/ec2ainun/books-ML-and-DL
 
 reinforcement learning, sutton
 http://incompleteideas.net/book/RLbook2020.pdf
+
+dive into deep learning, aston
+https://d2l.ai/d2l-en-pytorch.pdf

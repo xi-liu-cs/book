@@ -24,3 +24,6 @@ https://tex.stackexchange.com/questions/127043/listing-code-going-out-of-page
 
 matrix
 https://tex.stackexchange.com/questions/327779/how-to-draw-matrix-with-dots
+
+subscript
+https://tex.stackexchange.com/questions/7503/how-can-i-write-multiple-lines-in-a-subscript

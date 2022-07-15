@@ -23,6 +23,7 @@ fit to page
 https://tex.stackexchange.com/questions/127043/listing-code-going-out-of-page
 
 matrix
+https://tex.stackexchange.com/questions/507551/how-to-align-words-outside-matrix
 https://tex.stackexchange.com/questions/327779/how-to-draw-matrix-with-dots
 https://tex.stackexchange.com/questions/42666/text-above-matrices
 

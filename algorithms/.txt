@@ -1,5 +1,3 @@
-dynamic programming
-
 palindrome
 https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
 https://www.techiedelight.com/longest-palindromic-subsequence-using-dynamic-programming/
